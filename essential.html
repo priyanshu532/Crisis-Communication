@@ -1,0 +1,176 @@
+<!DOCTYPE html> 
+<html>
+	<head> 
+		<meta charset=utf-8 /> 
+		<meta name="viewport" content="intial-scale=1.0, user-scalable=no">
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBzjrmFrz1FwngueZlNFd60EaYGkxg6NBA"></script>    
+		<script>
+			var map;
+			var infowindow = new google.maps.InfoWindow();
+			var request;
+			var service;
+			var markers = [];
+			var storetype = 'hospital';
+			var coordinate = new google.maps.LatLng(28.609016,77.296246);
+
+			function initialize(){
+				map = new google.maps.Map(document.getElementById('map'),{
+					center: coordinate,
+					zoom: 13
+				});
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position){
+						coordinate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+						locChange();
+					})
+				}
+				request = {
+					location: coordinate,
+					radius: 32186,
+					types: [storetype]
+				};
+				service = new google.maps.places.PlacesService(map);
+				service.nearbySearch(request, callback);
+				google.maps.event.addListener(map, 'rightclick', function(event){ coordinate = event.latLng; locChange(); })
+			}
+			
+			function locChange(){
+				map.setCenter(coordinate)
+				clearResults(markers)
+				var request = {
+					location: coordinate,
+					radius: 32186,
+					types: [storetype]
+				};
+				service.nearbySearch(request, callback);
+			}
+
+			function callback(results, status){
+				if(status == google.maps.places.PlacesServiceStatus.OK){
+					for (var i =0; i < results.length; i++){
+						markers.push(createMarker(results[i]));
+					}
+				}
+			}
+
+			function createMarker(place){
+				var placeLoc = place.geometry.location;
+				var marker = new google.maps.Marker({
+					map: map,
+					position: place.geometry.location
+				});
+				marker.addListener('mouseover', function() {
+					infowindow.open(map, marker);
+					infowindow.setContent(place.name);
+				});
+				marker.addListener('dblclick', function() {
+					window.open("https://www.facebook.com/Co-Gudier-112455463893606/");
+				});
+				return marker;
+			}
+
+			function clearResults(markers) {
+				for (var m in markers) {
+					markers[m].setMap(null)
+				}
+				markers = [];
+			}
+
+			function valchg() {
+				//this is where the type of store is selected: 
+				storetype = document.querySelector('input[name="radio"]:checked').value;
+				clearResults(markers)
+				var request = {
+					location: coordinate,
+					radius: 32186,
+					types: [storetype]
+				};
+				service.nearbySearch(request, callback);
+			}
+			google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
+
+		<title>CO-Guider</title> 
+		<link rel="icon" href="yotta_icon.jpg" type="image" sizes="16x16">
+		
+		<style>
+			html, body, #map{
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.container {
+				display: block;
+				position: relative;
+				padding-left: 35px;
+				margin-bottom: 12px;
+				cursor: pointer;
+				font-size: 22px;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			.container input {
+				position: absolute;
+				opacity: 0;
+				cursor: pointer;
+			}
+			.checkmark {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 25px;
+				width: 25px;
+				background-color: #eee;
+				border-radius: 50%;
+			}
+			.container:hover input ~ .checkmark {
+				background-color: #ccc;
+			}
+			.container input:checked ~ .checkmark {
+				background-color: #2196F3;
+			}
+			.checkmark:after {
+				content: "";
+				position: absolute;
+				display: none;
+			}
+			.container input:checked ~ .checkmark:after {
+				display: block;
+			}
+			.container .checkmark:after {
+				top: 9px;
+				left: 9px;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: white;
+			}
+		</style>
+	</head>  
+	<body> 
+		<div id = "options" style="float:left; width: 20%; hight: 30%">
+			</br>
+			<label class="container">choose the service: 
+			</label>
+			<label class="container">hospital
+				<input type="radio" checked="checked" name="radio" id = "store" value='hospital' onclick="valchg()" >
+				<span class="checkmark"></span>
+			</label>
+			<label class="container">supermarket
+				<input type="radio" name="radio" id = "store" value='supermarket' onclick="valchg()">
+				<span class="checkmark"></span>
+			</label>
+			<label class="container">pharmacy
+				<input type="radio" name="radio" id = "store" value='pharmacy' onclick="valchg()">
+				<span class="checkmark"></span>
+			</label>
+		</div>
+		
+		<div id="map" style = "float:right; width: 80%;">
+		</div> 
+
+	</body> 
+</html>

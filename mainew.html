@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Co-Guider</title>
+    <style>
+    
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body{
+            height: 100vh;
+            display: inline-grid;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            background-image: url('bg.jpg');
+            color: #cccccc;
+        }
+        .center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    background: transparent;
+    border-radius: 10px;
+}
+       h1 {
+            top:-40%;
+            left:50%;
+            right: 50%;
+            height: 20vh;
+            font-weight: 800;
+            font-size: 50px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            background-color: #e2253e;
+            -webkit-background-clip:text;
+            -moz-background-clip:text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: rgba(245,245,245,0.5) 3px 5px 1px;
+        }
+        h3 {
+            top: 50%;
+            left: 50%;
+            right: 50%;
+            margin-top: 50px;
+            font-weight: 900;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: blue;
+            text-shadow: 4px 4px 4px rgb(243,53,53);
+        }
+        button{
+            cursor: pointer;
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin: 10px;
+            border: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: .4s;
+        }
+        button:nth-child(1){
+            color: #1ea0eb;
+            border: 1px solid;
+        }
+        button:nth-child(2){
+            color: #ee4a22;
+            border: 1px solid;
+        }
+        button:nth-child(1):hover{
+            background: #1ea0eb;
+            color: #222121;
+        }
+        button:nth-child(2):hover{
+            background: #ee4a22;
+            color: #222121;
+        }
+        button span{
+            display: flex;
+            width: 100px;
+            height: 10px;
+            background: #e5e5e5;
+            filter: blur(8px);
+            transform: rotate(110deg) translateX(10px) translateY(100px);
+            transition: .4s;
+        }
+        button:hover span{
+            transform: rotate(110deg) translateX(-80px) translateY(-140px);
+        }
+        </style>
+    </head>
+    <div class="center">
+        <h1>Co-Guider</h1>
+    <a href="https://web-chat.global.assistant.watson.cloud.ibm.com/preview.html?region=eu-gb&integrationID=fc73e9bc-5330-411e-8363-467fbbb740e8&serviceInstanceID=5e05fa98-6e1f-4ecf-993b-c93039744596">
+    <button type="submit">Self-assessment
+        <span></span>
+    </button>
+    </a>
+    <a href="https://web-chat.global.assistant.watson.cloud.ibm.com/preview.html?region=eu-gb&integrationID=c87f9f3e-c183-4b79-9087-bbfe01bb188a&serviceInstanceID=e7388fb0-ed9e-441a-b24f-9effef5f7828">
+    <button type="submit">Hospital
+        <span></span>
+    </button>
+    </a>
+    <a href="https://web-chat.global.assistant.watson.cloud.ibm.com/preview.html?region=eu-gb&integrationID=92419b7e-ff5b-4afd-a0ae-2e23f51d0433&serviceInstanceID=5775948a-eb8a-4d1e-96a8-c2f0f9f8b342">
+    <button type="submit">Pharmacy
+        <span></span>
+    </button>
+    </a>
+    <form action="essential.html">
+    <button type="submit">Essential Services
+        <span></span>
+    </button>
+        <span></span>
+        <span></span>
+    <h3>We are here to help you!!</h3>
+    </form>
+    </div>
+</html>
