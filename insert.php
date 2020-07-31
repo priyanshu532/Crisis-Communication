@@ -23,7 +23,7 @@ $result=mysqli_query($dbhandle,$sql);
 $num =mysqli_num_rows($result);
 
 if($num==1){
-	header('Location:index.html');
+	header('Location:mainew.html');
 }
 else{
 	header('Location:signup.html');
