@@ -31,7 +31,7 @@ if(mysqli_query($dbhandle,$sql)){
 	header('Location:mainew.html');
 }
 else{
-	header('Location:mainew.html');
+	header('Location:index.html');
 }
 
 
